@@ -5,7 +5,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
         </div>
-        <div class="sidebar-brand-text mx-3">Laravel 9 SB ADMIN <sup>20</sup></div>
+        <div class="sidebar-brand-text mx-3">Sistem Penggajian</div>
     </a>
 
     <!-- Divider -->
