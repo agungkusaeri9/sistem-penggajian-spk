@@ -34,6 +34,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('jabatan.index') }}">Jabatan</a>
+                <a class="collapse-item" href="{{ route('divisi.index') }}">Divisi</a>
             </div>
         </div>
     </li>

@@ -5,11 +5,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Edit Jabatan</h6>
+                        <h6>Edit Divisi</h6>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="{{ route('jabatan.update', $item->id) }}" method="post" class="needs-validation"
+                        <form action="{{ route('divisi.update', $item->id) }}" method="post" class="needs-validation"
                             novalidate="">
                             @csrf
                             @method('patch')
