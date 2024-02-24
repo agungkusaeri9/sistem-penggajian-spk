@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\GolonganGajiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->except('show');
     Route::resource('jabatan', JabatanController::class)->except('show');
     Route::resource('divisi', DivisiController::class)->except('show');
+    Route::resource('golongan-gaji', GolonganGajiController::class);
 });

@@ -35,6 +35,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('jabatan.index') }}">Jabatan</a>
                 <a class="collapse-item" href="{{ route('divisi.index') }}">Divisi</a>
+                <a class="collapse-item" href="{{ route('golongan-gaji.index') }}">Golongan Gaji</a>
             </div>
         </div>
     </li>
