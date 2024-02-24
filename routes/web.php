@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -27,4 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password.index');
     Route::post('/change-password', [ChangePasswordController::class, 'update'])->name('change-password.update');
     Route::resource('users', UserController::class)->except('show');
+    Route::resource('jabatan', JabatanController::class);
 });
