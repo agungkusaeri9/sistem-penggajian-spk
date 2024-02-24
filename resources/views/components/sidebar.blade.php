@@ -36,6 +36,7 @@
                 <a class="collapse-item" href="{{ route('jabatan.index') }}">Jabatan</a>
                 <a class="collapse-item" href="{{ route('divisi.index') }}">Divisi</a>
                 <a class="collapse-item" href="{{ route('golongan-gaji.index') }}">Golongan Gaji</a>
+                <a class="collapse-item" href="{{ route('tunjangan.index') }}">Tunjangan</a>
             </div>
         </div>
     </li>

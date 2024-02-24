@@ -6,6 +6,7 @@ use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\GolonganGajiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TunjanganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('jabatan', JabatanController::class)->except('show');
     Route::resource('divisi', DivisiController::class)->except('show');
     Route::resource('golongan-gaji', GolonganGajiController::class);
+    Route::resource('tunjangan', TunjanganController::class)->except('show');
 });
