@@ -4,6 +4,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\GolonganGajiController;
+use App\Http\Controllers\GolonganGajiTunjanganController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TunjanganController;
@@ -33,6 +34,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->except('show');
     Route::resource('jabatan', JabatanController::class)->except('show');
     Route::resource('divisi', DivisiController::class)->except('show');
+    Route::controller(GolonganGajiTunjanganController::class)->group(function () {
+        Route::get('/golongan-gaji-tunjangan/{id}', 'index')->name('golongan-gaji-tunjangan.index');
+        Route::get('/golongan-gaji-tunjangan/{id}/create', 'create')->name('golongan-gaji-tunjangan.create');
+        Route::post('/golongan-gaji-tunjangan/{id}/create', 'store')->name('golongan-gaji-tunjangan.store');
+        Route::get('/golongan-gaji-tunjangan/{id}/edit', 'edit')->name('golongan-gaji-tunjangan.edit');
+        Route::patch('/golongan-gaji-tunjangan/{id}/edit', 'update')->name('golongan-gaji-tunjangan.update');
+        Route::delete('/golongan-gaji-tunjangan/{id}', 'destroy')->name('golongan-gaji-tunjangan.destroy');
+    });
     Route::resource('golongan-gaji', GolonganGajiController::class);
     Route::resource('tunjangan', TunjanganController::class)->except('show');
 });

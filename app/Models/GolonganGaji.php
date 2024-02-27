@@ -15,4 +15,9 @@ class GolonganGaji extends Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function tunjangans()
+    {
+        return $this->hasMany(GolonganGajiTunjangan::class, 'golongan_gaji_id', 'id');
+    }
 }
