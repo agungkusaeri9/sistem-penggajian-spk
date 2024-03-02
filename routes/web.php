@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\GolonganGajiController;
 use App\Http\Controllers\GolonganGajiTunjanganController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TunjanganController;
 use App\Http\Controllers\UserController;
@@ -43,5 +45,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/golongan-gaji-tunjangan/{id}', 'destroy')->name('golongan-gaji-tunjangan.destroy');
     });
     Route::resource('golongan-gaji', GolonganGajiController::class);
+    Route::get('golongan-gaji/{jabatan_id}/by-jabatan-id', [GolonganGajiController::class, 'getByJabatanId'])->name('golongan-gaji.getByJabatanId');
     Route::resource('tunjangan', TunjanganController::class)->except('show');
+    Route::resource('karyawan', KaryawanController::class)->except('show');
+    Route::resource('bank', BankController::class)->except('show');
 });

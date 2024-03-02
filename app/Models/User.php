@@ -62,4 +62,9 @@ class User extends Authenticatable
             return '<span class="badge badge-danger">Tidak Aktif</span>';
         }
     }
+
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawan::class);
+    }
 }

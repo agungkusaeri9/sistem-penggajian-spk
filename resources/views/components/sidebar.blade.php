@@ -24,6 +24,13 @@
             <span>Data User</span></a>
     </li>
 
+
+    <li class="nav-item">
+        <a class="nav-link my-0 pb-1" href="{{ route('karyawan.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Data Karyawan</span></a>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -37,6 +44,7 @@
                 <a class="collapse-item" href="{{ route('divisi.index') }}">Divisi</a>
                 <a class="collapse-item" href="{{ route('golongan-gaji.index') }}">Golongan Gaji</a>
                 <a class="collapse-item" href="{{ route('tunjangan.index') }}">Tunjangan</a>
+                <a class="collapse-item" href="{{ route('bank.index') }}">Bank</a>
             </div>
         </div>
     </li>

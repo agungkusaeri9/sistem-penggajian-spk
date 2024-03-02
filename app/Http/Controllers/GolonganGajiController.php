@@ -62,7 +62,19 @@ class GolonganGajiController extends Controller
      */
     public function show($id)
     {
-        //
+        $jabatan_id = request('jabatan_id');
+        $golongan_gaji = GolonganGaji::where('jabatan_id', $jabatan_id)->with('tunjangans.tunjangan')->find($id);
+        if ($golongan_gaji) {
+            return response()->json([
+                'code' => 200,
+                'data' => $golongan_gaji
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'data' => NULL
+            ]);
+        }
     }
 
     /**
@@ -113,5 +125,14 @@ class GolonganGajiController extends Controller
         $item = GolonganGaji::findOrFail($id);
         $item->delete();
         return redirect()->route('golongan-gaji.index')->with('success', 'Golongan Gaji berhasil dihapus.');
+    }
+
+    public function getByJabatanId($jabatan_id)
+    {
+        $items = GolonganGaji::where('jabatan_id', $jabatan_id)->get();
+        return response()->json([
+            'code' => 200,
+            'data' => $items
+        ]);
     }
 }
