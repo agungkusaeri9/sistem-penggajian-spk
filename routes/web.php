@@ -4,6 +4,9 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\GajiController;
+use App\Http\Controllers\GajiLemburController;
+use App\Http\Controllers\GajiPotonganController;
 use App\Http\Controllers\GolonganGajiController;
 use App\Http\Controllers\GolonganGajiTunjanganController;
 use App\Http\Controllers\JabatanController;
@@ -49,4 +52,24 @@ Route::middleware('auth')->group(function () {
     Route::resource('tunjangan', TunjanganController::class)->except('show');
     Route::resource('karyawan', KaryawanController::class)->except('show');
     Route::resource('bank', BankController::class)->except('show');
+    Route::get('bank/getbykaryawanid', [BankController::class, 'getbykaryawanid'])->name('bank.getbykaryawanid');
+    Route::resource('gaji', GajiController::class)->except('show');
+    Route::post('gaji/update-lembur/{uuid}', [GajiController::class, 'update_lembur'])->name('gaji.update-lembur');
+    Route::post('gaji/update-potongan/{uuid}', [GajiController::class, 'update_potongan'])->name('gaji.update-potongan');
+    Route::controller(GajiLemburController::class)->group(function () {
+        Route::get('/gaji-lembur/{gaji_uuid}', 'index')->name('gaji-lembur.index');
+        Route::get('/gaji-lembur/create/{gaji_uuid}', 'create')->name('gaji-lembur.create');
+        Route::post('/gaji-lembur/create/{gaji_uuid}', 'store')->name('gaji-lembur.store');
+        Route::get('/gaji-lembur/edit/{uuid}', 'edit')->name('gaji-lembur.edit');
+        Route::patch('/gaji-lembur/edit/{uuid}', 'update')->name('gaji-lembur.update');
+        Route::delete('/gaji-lembur/edit/{uuid}', 'destroy')->name('gaji-lembur.destroy');
+    });
+    Route::controller(GajiPotonganController::class)->group(function () {
+        Route::get('/gaji-potongan/{gaji_uuid}', 'index')->name('gaji-potongan.index');
+        Route::get('/gaji-potongan/create/{gaji_uuid}', 'create')->name('gaji-potongan.create');
+        Route::post('/gaji-potongan/create/{gaji_uuid}', 'store')->name('gaji-potongan.store');
+        Route::get('/gaji-potongan/edit/{uuid}', 'edit')->name('gaji-potongan.edit');
+        Route::patch('/gaji-potongan/edit/{uuid}', 'update')->name('gaji-potongan.update');
+        Route::delete('/gaji-potongan/edit/{uuid}', 'destroy')->name('gaji-potongan.destroy');
+    });
 });

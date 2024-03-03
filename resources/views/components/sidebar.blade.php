@@ -19,9 +19,9 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link my-0 pb-1" href="{{ route('users.index') }}">
+        <a class="nav-link my-0 pb-1" href="{{ route('gaji.index') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Data User</span></a>
+            <span>Data Gaji</span></a>
     </li>
 
 
@@ -40,6 +40,7 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('users.index') }}">User</a>
                 <a class="collapse-item" href="{{ route('jabatan.index') }}">Jabatan</a>
                 <a class="collapse-item" href="{{ route('divisi.index') }}">Divisi</a>
                 <a class="collapse-item" href="{{ route('golongan-gaji.index') }}">Golongan Gaji</a>

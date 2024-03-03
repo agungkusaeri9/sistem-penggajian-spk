@@ -116,4 +116,24 @@ class BankController extends Controller
         $item->delete();
         return redirect()->route('bank.index')->with('success', 'Bank berhasil dihapus.');
     }
+
+    public function getbykaryawanid()
+    {
+        request()->validate([
+            'karyawan_id' => ['required']
+        ]);
+
+        $banks = Bank::where('karyawan_id', request('karyawan_id'))->get();
+        if ($banks) {
+            return response()->json([
+                'code' => 200,
+                'data' => $banks
+            ]);
+        } else {
+            return response()->json([
+                'code' => 200,
+                'data' => NULL
+            ]);
+        }
+    }
 }

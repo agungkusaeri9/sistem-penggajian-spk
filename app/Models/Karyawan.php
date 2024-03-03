@@ -53,4 +53,9 @@ class Karyawan extends Model
                 break;
         }
     }
+
+    public function golongan_gaji()
+    {
+        return $this->belongsTo(GolonganGaji::class);
+    }
 }
