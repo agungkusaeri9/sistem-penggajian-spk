@@ -49,3 +49,30 @@ function formatTanggal($date, $format = 'd-m-Y')
 {
     return Carbon::parse($date)->format($format);
 }
+
+function is_admin()
+{
+    if (auth()->user()->role === 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function is_karyawan()
+{
+    if (auth()->user()->role === 'karyawan') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function is_pimpinan()
+{
+    if (auth()->user()->role === 'pimpinan') {
+        return true;
+    } else {
+        return false;
+    }
+}

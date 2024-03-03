@@ -10,8 +10,10 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('gaji.create') }}" class="btn btn-sm btn-primary mb-3">Tambah
-                            Data</a>
+                        @if (is_admin())
+                            <a href="{{ route('gaji.create') }}" class="btn btn-sm btn-primary mb-3">Tambah
+                                Data</a>
+                        @endif
                         <div class="table-responsive">
                             <table class="table nowrap table-bordered table-hover" id="dTable">
                                 <thead>
@@ -45,19 +47,24 @@
                                             <td>{{ formatRupiah($item->gaji_bersih) }}</td>
                                             <td>{!! $item->status() !!}</td>
                                             <td>
-                                                <a href="{{ route('gaji-lembur.index', $item->uuid) }}"
-                                                    class="btn btn-sm btn-secondary"> Lembur</a>
-                                                <a href="{{ route('gaji-potongan.index', $item->uuid) }}"
-                                                    class="btn btn-sm btn-warning"> Potongan</a>
-                                                <a href="{{ route('gaji.edit', $item->uuid) }}"
-                                                    class="btn btn-sm btn-info"><i class="fas fa-edit"></i> Edit</a>
-                                                <form action="" method="post" class="d-inline" id="formDelete">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button data-action="{{ route('gaji.destroy', $item->uuid) }}"
-                                                        class="btn btn-sm btn-danger btnDelete"><i class="fas fa-trash"></i>
-                                                        Hapus</button>
-                                                </form>
+                                                <a href="{{ route('gaji.detail', $item->uuid) }}"
+                                                    class="btn btn-sm btn-warning"> Detail</a>
+                                                @if (is_admin())
+                                                    <a href="{{ route('gaji-lembur.index', $item->uuid) }}"
+                                                        class="btn btn-sm btn-secondary"> Lembur</a>
+                                                    <a href="{{ route('gaji-potongan.index', $item->uuid) }}"
+                                                        class="btn btn-sm btn-warning"> Potongan</a>
+                                                    <a href="{{ route('gaji.edit', $item->uuid) }}"
+                                                        class="btn btn-sm btn-info"><i class="fas fa-edit"></i> Edit</a>
+                                                    <form action="" method="post" class="d-inline" id="formDelete">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button data-action="{{ route('gaji.destroy', $item->uuid) }}"
+                                                            class="btn btn-sm btn-danger btnDelete"><i
+                                                                class="fas fa-trash"></i>
+                                                            Hapus</button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

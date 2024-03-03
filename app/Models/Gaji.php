@@ -16,6 +16,11 @@ class Gaji extends Model
         return $this->belongsTo(Karyawan::class);
     }
 
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
     public function lembur()
     {
         return $this->hasMany(GajiLembur::class);
@@ -23,6 +28,11 @@ class Gaji extends Model
     public function potongans()
     {
         return $this->hasMany(GajiPotongan::class, 'gaji_id', 'id');
+    }
+
+    public function scopeGetByKaryawan($q)
+    {
+        $q->where('karyawan_id', auth()->user()->karyawan->id);
     }
 
     public function status()

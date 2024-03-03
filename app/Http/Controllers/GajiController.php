@@ -11,9 +11,20 @@ use Illuminate\Validation\Rule;
 
 class GajiController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('cek_role:admin')->only(['create', 'edit', 'destroy', 'update_lembur', 'update_potongan']);
+    }
     public function index()
     {
-        $items = Gaji::latest()->get();
+        $gaji = Gaji::latest();
+        if (is_karyawan()) {
+            $gaji->getByKaryawan();
+        } elseif (is_admin()) {
+            $gaji->whereNotNull('id');
+        }
+        $items = $gaji->get();
         return view('pages.gaji.index', [
             'title' => 'Data Gaji',
             'items' => $items
@@ -205,5 +216,14 @@ class GajiController extends Controller
         ]);
 
         return redirect()->route('gaji.index')->with('success', 'Gaji berhasil diupdate.');
+    }
+
+    public function detail($uuid)
+    {
+        $gaji = Gaji::with(['potongans', 'karyawan.golongan_gaji.tunjangans', 'lembur', 'bank'])->where('uuid', $uuid)->firstOrFail();
+        return view('pages.gaji.detail', [
+            'title' => 'Detail Gaji',
+            'gaji' => $gaji
+        ]);
     }
 }

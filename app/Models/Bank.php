@@ -15,4 +15,10 @@ class Bank extends Model
     {
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function getFull()
+    {
+        $bank = $this->nama . ' - ' . $this->nomor_rekening . ' a.n ' . $this->pemilik;
+        return $bank;
+    }
 }
