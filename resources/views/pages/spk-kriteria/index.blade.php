@@ -6,25 +6,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Data Gaji Lembur</h6>
+                        <h6>Data SPK Kriteria</h6>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('gaji-lembur.create', $gaji->uuid) }}" class="btn btn-sm btn-primary mb-3">Tambah
+                        <a href="{{ route('spk-kriteria.create') }}" class="btn btn-sm btn-primary mb-3">Tambah
                             Data</a>
-                        <form action="{{ route('gaji.update-lembur', $gaji->uuid) }}" class="d-inline" method="post">
-                            @csrf
-                            <button class="btn btn-sm btn-info mb-3">Update Lembur</button>
-                        </form>
                         <div class="table-responsive">
                             <table class="table nowrap table-bordered table-hover" id="dTable">
                                 <thead>
                                     <tr>
                                         <th width="10">No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Durasi</th>
-                                        <th>Nominal Perjam</th>
-                                        <th>Total</th>
+                                        <th>Kode</th>
+                                        <th>Nama</th>
+                                        <th>Jenis</th>
+                                        <th>Bobot</th>
+                                        <th>Bobot Sederhana</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -32,17 +29,22 @@
                                     @foreach ($items as $item)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->durasi . ' Jam' }}</td>
-                                            <td>{{ formatRupiah($item->nominal_perjam) }}</td>
-                                            <td>{{ formatRupiah($item->total) }}</td>
+                                            <td>{{ $item->kode }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->jenis }}</td>
+                                            <td>{{ $item->bobot }}</td>
+                                            <td>{{ $item->bobotSederhana() }}</td>
                                             <td>
-                                                <a href="{{ route('gaji-lembur.edit', $item->uuid) }}"
+                                                <a href="{{ route('spk-kriteria-detail.index', [
+                                                    'spk_kriteria_id' => $item->id,
+                                                ]) }}"
+                                                    class="btn btn-sm btn-warning"><i class="fas fa-eye"></i> Detail</a>
+                                                <a href="{{ route('spk-kriteria.edit', $item->id) }}"
                                                     class="btn btn-sm btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline" id="formDelete">
                                                     @csrf
                                                     @method('delete')
-                                                    <button data-action="{{ route('gaji-lembur.destroy', $item->uuid) }}"
+                                                    <button data-action="{{ route('spk-kriteria.destroy', $item->id) }}"
                                                         class="btn btn-sm btn-danger btnDelete"><i class="fas fa-trash"></i>
                                                         Hapus</button>
                                                 </form>

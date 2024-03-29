@@ -2,29 +2,57 @@
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Filter</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="GET">
+                            <div class='form-group'>
+                                <label for='spk_kriteria_id'>Kriteria</label>
+                                <select name='spk_kriteria_id' id='spk_kriteria_id'
+                                    class='form-control @error('spk_kriteria_id') is-invalid @enderror'>
+                                    <option value='' selected>Pilih Kriteria</option>
+                                    @foreach ($data_kriteria as $kriteria)
+                                        <option @selected($kriteria->id == request('spk_kriteria_id')) value="{{ $kriteria->id }}">
+                                            {{ $kriteria->kode . ' | ' . $kriteria->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('spk_kriteria_id')
+                                    <div class='invalid-feedback'>
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-secondary">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Data Gaji Lembur</h6>
+                        <h6>Data SPK Detail Kriteria</h6>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('gaji-lembur.create', $gaji->uuid) }}" class="btn btn-sm btn-primary mb-3">Tambah
+                        <a href="{{ route('spk-kriteria-detail.create') }}" class="btn btn-sm btn-primary mb-3">Tambah
                             Data</a>
-                        <form action="{{ route('gaji.update-lembur', $gaji->uuid) }}" class="d-inline" method="post">
-                            @csrf
-                            <button class="btn btn-sm btn-info mb-3">Update Lembur</button>
-                        </form>
                         <div class="table-responsive">
                             <table class="table nowrap table-bordered table-hover" id="dTable">
                                 <thead>
                                     <tr>
                                         <th width="10">No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Durasi</th>
-                                        <th>Nominal Perjam</th>
-                                        <th>Total</th>
+                                        <th>Kriteria</th>
+                                        <th>Nama</th>
+                                        <th>Nilai</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -32,17 +60,17 @@
                                     @foreach ($items as $item)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->durasi . ' Jam' }}</td>
-                                            <td>{{ formatRupiah($item->nominal_perjam) }}</td>
-                                            <td>{{ formatRupiah($item->total) }}</td>
+                                            <td>{{ $item->kriteria->nama }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->nilai }}</td>
                                             <td>
-                                                <a href="{{ route('gaji-lembur.edit', $item->uuid) }}"
+                                                <a href="{{ route('spk-kriteria-detail.edit', $item->id) }}"
                                                     class="btn btn-sm btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline" id="formDelete">
                                                     @csrf
                                                     @method('delete')
-                                                    <button data-action="{{ route('gaji-lembur.destroy', $item->uuid) }}"
+                                                    <button
+                                                        data-action="{{ route('spk-kriteria-detail.destroy', $item->id) }}"
                                                         class="btn btn-sm btn-danger btnDelete"><i class="fas fa-trash"></i>
                                                         Hapus</button>
                                                 </form>

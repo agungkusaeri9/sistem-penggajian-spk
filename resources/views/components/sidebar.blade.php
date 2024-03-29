@@ -37,6 +37,20 @@
                 <span>Data Karyawan</span></a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link my-0 pb-1 collapsed" href="#" data-toggle="collapse" data-target="#laporan"
+                aria-expanded="true" aria-controls="laporan">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>SPK</span>
+            </a>
+            <div id="laporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('spk-kriteria.index') }}">Kriteria</a>
+                    <a class="collapse-item" href="{{ route('spk-alternatif-kriteria.index') }}">Alternatif Kriteria</a>
+                </div>
+            </div>
+        </li>
+
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"

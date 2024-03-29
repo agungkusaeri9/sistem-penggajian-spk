@@ -19,11 +19,17 @@ class GajiController extends Controller
     public function index()
     {
         $gaji = Gaji::latest();
+        $bulan = request('bulan');
+        $tahun = request('tahun');
         if (is_karyawan()) {
             $gaji->getByKaryawan();
         } elseif (is_admin()) {
             $gaji->whereNotNull('id');
         }
+        if ($tahun)
+            $gaji->where('tahun', $tahun);
+        if ($bulan)
+            $gaji->where('bulan', $bulan);
         $items = $gaji->get();
         return view('pages.gaji.index', [
             'title' => 'Data Gaji',

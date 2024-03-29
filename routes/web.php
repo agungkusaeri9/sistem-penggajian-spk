@@ -11,9 +11,14 @@ use App\Http\Controllers\GolonganGajiController;
 use App\Http\Controllers\GolonganGajiTunjanganController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SpkAlternatifKriteriaController;
+use App\Http\Controllers\SpkKriteriaController;
+use App\Http\Controllers\SpkKriteriaDetailController;
 use App\Http\Controllers\TunjanganController;
 use App\Http\Controllers\UserController;
+use App\Models\SpkAlternatifKriteria;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -83,4 +88,12 @@ Route::middleware('auth')->group(function () {
     Route::get('gaji/{uuid}/detail', [GajiController::class, 'detail'])->name('gaji.detail');
     Route::post('gaji/update-lembur/{uuid}', [GajiController::class, 'update_lembur'])->name('gaji.update-lembur');
     Route::post('gaji/update-potongan/{uuid}', [GajiController::class, 'update_potongan'])->name('gaji.update-potongan');
+
+    Route::resource('spk-kriteria', SpkKriteriaController::class);
+    Route::resource('spk-kriteria-detail', SpkKriteriaDetailController::class);
+    Route::resource('spk-alternatif-kriteria', SpkAlternatifKriteriaController::class);
+
+
+    // Route::get('laporan/gaji', [LaporanController::class, 'gaji_index'])->name('laporan.gaji.index');
+    // Route::get('laporan/gaji', [LaporanController::class, 'gaji_print'])->name('laporan.gaji.print');
 });

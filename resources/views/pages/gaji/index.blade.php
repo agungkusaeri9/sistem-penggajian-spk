@@ -2,6 +2,62 @@
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Filter</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="GET">
+                            <div class='form-group'>
+                                <label for='bulan'>Bulan</label>
+                                <select name='bulan' id='bulan'
+                                    class='form-control @error('bulan') is-invalid @enderror'>
+                                    <option value='' selected disabled>Pilih Bulan</option>
+                                    <option @selected(request('bulan') == 1) value="1">Januari</option>
+                                    <option @selected(request('bulan') == 2) value="2">Februari</option>
+                                    <option @selected(request('bulan') == 3) value="3">Maret</option>
+                                    <option @selected(request('bulan') == 4) value="4">April</option>
+                                    <option @selected(request('bulan') == 5) value="5">Mei</option>
+                                    <option @selected(request('bulan') == 6) value="6">Juni</option>
+                                    <option @selected(request('bulan') == 7) value="7">Juli</option>
+                                    <option @selected(request('bulan') == 8) value="8">Agustus</option>
+                                    <option @selected(request('bulan') == 9) value="9">September</option>
+                                    <option @selected(request('bulan') == 10) value="10">Oktober</option>
+                                    <option @selected(request('bulan') == 11) value="11">November</option>
+                                    <option @selected(request('bulan') == 12) value="12">Desember</option>
+                                </select>
+                                @error('bulan')
+                                    <div class='invalid-feedback'>
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class='form-group'>
+                                <label for='tahun'>Tahun</label>
+                                <select name='tahun' id='tahun'
+                                    class='form-control @error('tahun') is-invalid @enderror'>
+                                    <option value='' selected disabled>Pilih Tahun</option>
+                                    <option @selected(request('tahun') == 2024) value="2024">2024</option>
+                                    <option @selected(request('tahun') == 2025) value="2025">2025</option>
+                                    <option @selected(request('tahun') == 2026) value="2026">2026</option>
+                                    <option @selected(request('tahun') == 2027) value="2027">2027</option>
+                                </select>
+                                @error('tahun')
+                                    <div class='invalid-feedback'>
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-secondary">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
