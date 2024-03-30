@@ -14,10 +14,17 @@ class SpkAlternatifKriteriaController extends Controller
     {
         $data_karyawan = Karyawan::orderBy('nama', 'ASC')->get();
         $data_kriteria = SpkKriteria::orderBy('nama', 'ASC')->get();
+        $data_normalisasi = SpkAlternatifKriteria::with(['karyawan', 'spk_kriteria', 'spk_kriteria_detail'])
+            ->join('karyawan', 'spk_alternatif_kriteria.karyawan_id', '=', 'karyawan.id')
+            ->select('spk_alternatif_kriteria.karyawan_id')
+            ->groupBy('spk_alternatif_kriteria.karyawan_id')
+            ->orderBy('karyawan.nama')
+            ->get();
         return view('pages.alternatif-kriteria.index', [
             'title' => 'Alternatif Kriteria',
             'data_karyawan' => $data_karyawan,
-            'data_kriteria' => $data_kriteria
+            'data_kriteria' => $data_kriteria,
+            'data_normalisasi' => $data_normalisasi
         ]);
     }
 
@@ -39,6 +46,7 @@ class SpkAlternatifKriteriaController extends Controller
                     ]);
                 }
             }
+            // dd('berhasil');
             DB::commit();
             return redirect()->back()->with('success', 'Berhasil dinormalisasi.');
         } catch (\Throwable $th) {

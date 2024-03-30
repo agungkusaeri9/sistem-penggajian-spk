@@ -54,9 +54,106 @@
                                 </table>
                             </div>
                             <div class="form-group">
-                                <button class="btn float-right btn-primary">Tambah Data</button>
+                                <button class="btn float-right btn-primary">Get Normalisasi</button>
                             </div>
                         </form>
+                        @if ($data_normalisasi)
+                            <form action="javascript:void(0)" method="post" class="needs-validation" novalidate=""
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="table-responsive">
+                                    <table class="table nowrap table-bordered">
+                                        <tr>
+                                            <th rowspan="2" colspan="2">Karyawan</th>
+                                            <th colspan="{{ count($data_kriteria) }}" class="text-center">Kriteria</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($data_kriteria as $kriteria)
+                                                <th class="text-center">
+                                                    {{ $kriteria->nama . ' (' . getJenis($kriteria->id) . ')' }}
+                                                </th>
+                                            @endforeach
+                                        </tr>
+                                        @foreach ($data_normalisasi as $normalisasi)
+                                            <tr>
+                                                <input type="hidden" name="karyawan_id[]" value="{{ $normalisasi->id }}">
+                                                <td colspan="2">
+                                                    {{ $normalisasi->karyawan->nama }}
+                                                </td>
+                                                @foreach ($data_kriteria as $kriteria2)
+                                                    <td>
+                                                        {{ getNilai($normalisasi->karyawan_id, $kriteria2->id) }}
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <th colspan="
+                                   2">Pembagi</th>
+                                            @foreach ($data_kriteria as $krite)
+                                                <td>{{ getPembagi($krite->id) }}</td>
+                                            @endforeach
+                                        </tr>
+                                    </table>
+                                </div>
+                            </form>
+                            <form action="javascript:void(0)" method="post" class="needs-validation" novalidate=""
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="table-responsive">
+                                    <table class="table nowrap table-bordered">
+                                        <tr>
+                                            <th rowspan="2" colspan="2">Karyawan</th>
+                                            <th colspan="{{ count($data_kriteria) }}" class="text-center">Kriteria</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($data_kriteria as $kriteria)
+                                                <th class="text-center">
+                                                    {{ $kriteria->nama . ' (' . getJenis($kriteria->id) . ')' }}
+                                                </th>
+                                            @endforeach
+                                        </tr>
+                                        @foreach ($data_normalisasi as $normalisasi)
+                                            <tr>
+                                                <input type="hidden" name="karyawan_id[]" value="{{ $normalisasi->id }}">
+                                                <td colspan="2">
+                                                    {{ $normalisasi->karyawan->nama }}
+                                                </td>
+                                                @foreach ($data_kriteria as $kriteria2)
+                                                    <td>
+                                                        {{ getNormalisasi($normalisasi->karyawan_id, $kriteria2->id) }}
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </form>
+                            <form action="javascript:void(0)" method="post" class="needs-validation" novalidate=""
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="table-responsive">
+                                    <table class="table nowrap table-bordered">
+                                        <tr>
+                                            <th colspan="">Karyawan</th>
+                                            <th colspan="" class="text-center">Kriteria</th>
+                                            <th>Ranking</th>
+                                        </tr>
+                                        @foreach ($data_normalisasi as $normalisasi)
+                                            <tr>
+                                                <td>
+                                                    {{ $normalisasi->karyawan->nama }}
+                                                </td>
+                                                <td>{{ getTotalNilai($normalisasi->karyawan_id) }}</td>
+                                                <td>
+                                                    {{-- {{ getAllRanking($normalisasi->karyawan_id) }} --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                     <!-- /.card-body -->
                 </div>

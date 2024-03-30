@@ -27,10 +27,6 @@ class SpkKriteria extends Model
         return $hasil;
     }
 
-    public static function totalIsi()
-    {
-        self::sum()
-    }
 
     public function pembagi()
     {
@@ -39,6 +35,6 @@ class SpkKriteria extends Model
 
     public function alternatif_kriteria()
     {
-        return $this->hasMany(SpkAlternatifKriteria::class,'spk_alternatif_kriteria_id','id');
+        return $this->hasMany(SpkAlternatifKriteria::class, 'spk_alternatif_kriteria_id', 'id');
     }
 }

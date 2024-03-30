@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\SpkAlternatifKriteria;
+use App\Models\SpkKriteria;
 use Carbon\Carbon;
 
 function getMonthName($monthNumber)
@@ -75,4 +77,72 @@ function is_pimpinan()
     } else {
         return false;
     }
+}
+
+function getNilai($karyawan_id, $kriteria_id)
+{
+    $item = SpkAlternatifKriteria::where('karyawan_id', $karyawan_id)->where('spk_kriteria_id', $kriteria_id)->first();
+    return $item->spk_kriteria_detail->nilai;
+}
+
+function getNormalisasi($karyawan_id, $kriteria_id)
+{
+    $jenis = getJenis($kriteria_id);
+    $nilai = getNilai($karyawan_id, $kriteria_id);
+    $pembagi = getPembagi($kriteria_id);
+    if ($jenis === 'cost') {
+        $hasil = $pembagi / $nilai;
+    } else {
+        $hasil = $nilai / $pembagi;
+    }
+    return $hasil;
+}
+
+function getJenis($kriteria_id)
+{
+    $kriteria = SpkKriteria::findOrFail($kriteria_id);
+    return $kriteria->jenis;
+}
+
+function getPembagi($kriteria_id)
+{
+    $kriteria = SpkKriteria::findOrFail($kriteria_id);
+    $arr_nilai = SpkAlternatifKriteria::where('spk_kriteria_id', $kriteria_id)->get()->pluck('spk_kriteria_detail.nilai');
+    if ($kriteria->jenis === 'cost') {
+        //cari yang terkecil
+        $data = $arr_nilai->min();
+    } else {
+        // cari yang terbesar
+        $data = $arr_nilai->max();
+    }
+
+    return $data;
+}
+
+function getTotalNilai($karyawan_id)
+{
+    $arr_jumlah = [];
+    $data_kriteria = SpkKriteria::get();
+    $jumlah = 0;
+    foreach ($data_kriteria as $kriteria) {
+        $jumlah =  $jumlah + (getNormalisasi($karyawan_id, $kriteria->id) * $kriteria->bobotSederhana());
+    }
+    array_push($arr_jumlah, $jumlah);
+    return $jumlah;
+}
+
+function getRankingNumber()
+{
+    $data_kriteria = SpkKriteria::get();
+    $data_normalisasi = SpkAlternatifKriteria::with(['karyawan', 'spk_kriteria', 'spk_kriteria_detail'])
+        ->select('karyawan_id')
+        ->groupBy('karyawan_id')
+        ->get();
+    $jumlah = 0;
+    foreach ($data_normalisasi as $normalisasi) {
+        foreach ($data_kriteria as $kriteria) {
+            $jumlah =  $jumlah + (getNormalisasi($normalisasi->karyawan_id, $kriteria->id) * $kriteria->bobotSederhana());
+        }
+    }
+    return $jumlah;
 }
